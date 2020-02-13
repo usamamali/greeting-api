@@ -59,4 +59,16 @@ public class GreetingControllerTests {
                 .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value());
     }
+
+    @Test
+    public void when_account_is_business_and_type_is_small_then_fail_not_implemented_and_return_message() {
+        RestAssured.baseURI = "http://localhost:" + port;
+        given()
+                .queryParam("account", "business")
+                .queryParam("type", "small")
+                .when().get("/greeting")
+                .then()
+                .statusCode(HttpStatus.NOT_IMPLEMENTED.value())
+                .body("message", equalTo("This path is not implemented yet"));
+    }
 }

@@ -27,4 +27,11 @@ public class GlobalExceptionHandlerController {
         String errMessage = e.getConstraintViolations().stream().findFirst().map(ConstraintViolation::getMessage).orElse("unknown reason");
         return new ApiErrorMessage(ZonedDateTime.now(), HttpStatus.BAD_REQUEST.value(), errMessage);
     }
+
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    @ExceptionHandler(value = {NotImplementedPathException.class})
+    public ApiErrorMessage handleNotImplementedPathException(NotImplementedPathException e) {
+        log.error(e.getMessage(), e);
+        return new ApiErrorMessage(ZonedDateTime.now(), HttpStatus.NOT_IMPLEMENTED.value(), e.getMessage());
+    }
 }
