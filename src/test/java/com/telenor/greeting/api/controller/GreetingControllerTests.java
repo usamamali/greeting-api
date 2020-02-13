@@ -71,4 +71,16 @@ public class GreetingControllerTests {
                 .statusCode(HttpStatus.NOT_IMPLEMENTED.value())
                 .body("message", equalTo("This path is not implemented yet"));
     }
+
+    @Test
+    public void when_account_is_business_and_type_is_big_then_succeed_ok_and_return_message() {
+        RestAssured.baseURI = "http://localhost:" + port;
+        given()
+                .queryParam("account", "business")
+                .queryParam("type", "big")
+                .when().get("/greeting")
+                .then()
+                .statusCode(HttpStatus.OK.value())
+                .body(equalTo("Welcome, business user!"));
+    }
 }
