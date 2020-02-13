@@ -48,4 +48,15 @@ public class GreetingControllerTests {
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .body("message", equalTo("Id should be positive"));
     }
+
+    @Test
+    public void when_account_is_unrecognized_value_and_id_is_positive_then_fail_badRequest() {
+        RestAssured.baseURI = "http://localhost:" + port;
+        given()
+                .queryParam("account", "private")
+                .queryParam("id", 123)
+                .when().get("/greeting")
+                .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value());
+    }
 }
