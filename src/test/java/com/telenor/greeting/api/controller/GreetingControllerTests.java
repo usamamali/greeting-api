@@ -83,4 +83,15 @@ public class GreetingControllerTests {
                 .statusCode(HttpStatus.OK.value())
                 .body(equalTo("Welcome, business user!"));
     }
+
+    @Test
+    public void when_account_is_business_and_type_is_unrecognized_value_then_fail_badRequest() {
+        RestAssured.baseURI = "http://localhost:" + port;
+        given()
+                .queryParam("account", "business")
+                .queryParam("type", "unrecognized")
+                .when().get("/greeting")
+                .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value());
+    }
 }
