@@ -36,4 +36,16 @@ public class GreetingControllerTests {
                 .statusCode(HttpStatus.OK.value())
                 .body(equalTo("Hi, userId 123"));
     }
+
+    @Test
+    public void when_account_is_personal_and_id_is_non_positive_then_fail_badRequest_and_return_message() {
+        RestAssured.baseURI = "http://localhost:" + port;
+        given()
+                .queryParam("account", "personal")
+                .queryParam("id", -1)
+                .when().get("/greeting")
+                .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .body("message", equalTo("Id should be positive"));
+    }
 }
