@@ -28,9 +28,9 @@ public class GreetingController {
     public ResponseEntity<String> greetBusinessAccount(@RequestParam(name = "type") @NotNull BusinessType type) {
 
         switch (type) {
-            case big:
+            case BIG:
                 return ResponseEntity.ok("Welcome, business user!");
-            case small:
+            case SMALL:
             default:
                 throw new NotImplementedPathException("This path is not implemented yet");
         }

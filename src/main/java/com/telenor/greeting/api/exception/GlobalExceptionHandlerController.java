@@ -1,6 +1,7 @@
 package com.telenor.greeting.api.exception;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,5 +34,13 @@ public class GlobalExceptionHandlerController {
     public ApiErrorMessage handleNotImplementedPathException(NotImplementedPathException e) {
         log.error(e.getMessage(), e);
         return new ApiErrorMessage(ZonedDateTime.now(), HttpStatus.NOT_IMPLEMENTED.value(), e.getMessage());
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ConversionFailedException.class)
+    ApiErrorMessage handleConversionFailedException(ConversionFailedException e) {
+        log.error(e.getMessage(), e);
+        return new ApiErrorMessage(ZonedDateTime.now(), HttpStatus.BAD_REQUEST.value(), e.getCause().getMessage());
     }
 }

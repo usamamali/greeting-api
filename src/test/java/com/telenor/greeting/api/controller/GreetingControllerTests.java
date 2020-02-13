@@ -85,6 +85,30 @@ public class GreetingControllerTests {
     }
 
     @Test
+    public void when_account_is_business_and_type_is_SMALL_then_fail_not_implemented_and_return_message() {
+        RestAssured.baseURI = "http://localhost:" + port;
+        given()
+                .queryParam("account", "business")
+                .queryParam("type", "SMALL")
+                .when().get("/greeting")
+                .then()
+                .statusCode(HttpStatus.NOT_IMPLEMENTED.value())
+                .body("message", equalTo("This path is not implemented yet"));
+    }
+
+    @Test
+    public void when_account_is_business_and_type_is_BIG_then_succeed_ok_and_return_message() {
+        RestAssured.baseURI = "http://localhost:" + port;
+        given()
+                .queryParam("account", "business")
+                .queryParam("type", "BIG")
+                .when().get("/greeting")
+                .then()
+                .statusCode(HttpStatus.OK.value())
+                .body(equalTo("Welcome, business user!"));
+    }
+
+    @Test
     public void when_account_is_business_and_type_is_unrecognized_value_then_fail_badRequest() {
         RestAssured.baseURI = "http://localhost:" + port;
         given()
