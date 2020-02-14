@@ -6,7 +6,7 @@ A simple REST API to for greetings.
 - [ Solution ](#solution)
     - [ Architecture ](#architecture)
     - [ Technologies ](#technologies)
-    - [ Build & Deployment ](#build-and-deployment)
+    - [ Build and Deployment ](#build-and-deployment)
     - [ Test ](#test)
     - [ Code Analysis ](#code-analysis)
     
@@ -36,12 +36,12 @@ We should be able to:
 - make a request to localhost:5000/greeting and verify the behavior
   Please provide an archive with the source code and a list of the terminal commands to build and run the application.
 
-##Solution
+## Solution
 
-###Architecture
+### Architecture
 Per the requirement, I have designed a Java based REST API with single endpoint GET /greeting
 
-###Technologies
+### Technologies
 - Java 11
 - SpringBoot 2.2.4
 - REST Assured
@@ -49,7 +49,7 @@ Per the requirement, I have designed a Java based REST API with single endpoint 
 - JaCoCo
 - Sonar
 
-###Build and Deployment
+### Build and Deployment
 **Maven**
 
 ```shell
@@ -66,7 +66,7 @@ Per the requirement, I have designed a Java based REST API with single endpoint 
   docker run -p 5000:5000 greeting-api:latest 
 ```
 
-###Test
+### Test
 
 **account=personal and id=123**
 ```shell
@@ -83,7 +83,7 @@ Per the requirement, I have designed a Java based REST API with single endpoint 
   curl -X GET "localhost:5000/greeting?account=business&type=big"
 ```
 
-###Code Analysis
+### Code Analysis
 SonarCloud public URL: https://sonarcloud.io/dashboard?id=usamamali_greeting-api
 
 ![Code quality](https://sonarcloud.io/api/project_badges/measure?project=usamamali_greeting-api&metric=alert_status 'Code Quality')
