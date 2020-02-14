@@ -57,7 +57,7 @@ public class GreetingControllerTests {
                 .queryParam("id", 123)
                 .when().get("/greeting")
                 .then()
-                .statusCode(HttpStatus.BAD_REQUEST.value());
+                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 
     @Test
@@ -117,5 +117,17 @@ public class GreetingControllerTests {
                 .when().get("/greeting")
                 .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value());
+    }
+
+    @Test
+    public void when_unknown_parameters_are_sent() {
+        RestAssured.baseURI = "http://localhost:" + port;
+        given()
+                .queryParam("account", "business")
+                .queryParam("unknown", "BIG")
+                .when().get("/greeting")
+                .then()
+                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .body("message", equalTo("Internal Error. Please, try again later"));
     }
 }
