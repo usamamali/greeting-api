@@ -8,6 +8,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 
 import static io.restassured.RestAssured.when;
+import static org.hamcrest.Matchers.equalTo;
 
 /**
  * @author usama
@@ -29,8 +30,9 @@ public class HealthCheckControllerTests {
     public void verify_server_is_up() {
         RestAssured.baseURI = "http://localhost:" + port;
         when()
-                .get("/healthcheck")
+                .get("/actuator/health")
                 .then()
-                .statusCode(HttpStatus.OK.value());
+                .statusCode(HttpStatus.OK.value())
+                .body("status", equalTo("UP"));
     }
 }
